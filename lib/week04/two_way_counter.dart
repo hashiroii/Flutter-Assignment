@@ -23,36 +23,44 @@ class _TwoWayCounterState extends State<TwoWayCounter> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
           children: [
-            OutlinedButton(
-              onPressed: _count == 0 ? null : () => setState(() => _count--),
-              child: const Text('−'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedButton(
+                  onPressed: _count == 0
+                      ? null
+                      : () => setState(() => _count--),
+                  child: const Text('−'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text('$_count'),
+                ),
+                FilledButton(
+                  onPressed: () => setState(() => _count++),
+                  child: const Text('+'),
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text('$_count'),
-            ),
+            const SizedBox(height: 8),
             FilledButton(
-              onPressed: () => setState(() => _count++),
-              child: const Text('+'),
+              onPressed: _saving ? null : _save,
+              child: _saving
+                  ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Text('Save'),
             ),
           ],
         ),
-        const SizedBox(height: 8),
-        FilledButton(
-          onPressed: _saving ? null : _save,
-          child: _saving
-              ? const SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                )
-              : const Text('Save'),
-        ),
-      ],
+      ),
     );
   }
 }

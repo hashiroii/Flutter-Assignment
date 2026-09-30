@@ -52,6 +52,7 @@ class _StopwatchCardState extends State<StopwatchCard> {
             Text(_time, style: Theme.of(context).textTheme.headlineMedium),
             const SizedBox(height: 8),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FilledButton(onPressed: _start, child: const Text('Start')),
                 const SizedBox(width: 8),
