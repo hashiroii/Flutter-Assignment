@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:assignment_2/week03/main.dart';
-import 'package:assignment_2/week03/data.dart';
+import 'package:kbtu_flutter/week03/main.dart';
+import 'package:kbtu_flutter/week03/data.dart';
 
 void main() {
   testWidgets('Profile screen shows name and university', (

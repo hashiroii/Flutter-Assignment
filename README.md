@@ -1,4 +1,4 @@
-# assignment_2
+# kbtu_flutter
 
 A new Flutter project.
 

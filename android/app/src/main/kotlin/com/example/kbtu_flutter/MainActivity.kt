@@ -1,4 +1,4 @@
-package com.example.assignment_2
+package com.example.kbtu_flutter
 
 import io.flutter.embedding.android.FlutterActivity
 
