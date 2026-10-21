@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'routes.dart';
-import 'shell.dart';
+import 'screens/shell.dart';
 
 void main() => runApp(const MyApp());
 

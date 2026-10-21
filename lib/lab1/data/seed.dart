@@ -1,4 +1,4 @@
-import 'models.dart';
+import '../models/models.dart';
 
 List<Event> seedEvents() {
   final now = DateTime.now();

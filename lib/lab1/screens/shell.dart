@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'events_tab.dart';
-import 'favourites_tab.dart';
-import 'models.dart';
-import 'profile_tab.dart';
-import 'routes.dart';
-import 'seed.dart';
+import 'tabs/events_tab.dart';
+import 'tabs/favourites_tab.dart';
+import '../models/models.dart';
+import 'tabs/profile_tab.dart';
+import '../routes.dart';
+import '../data/seed.dart';
 
 class Shell extends StatefulWidget {
   const Shell({

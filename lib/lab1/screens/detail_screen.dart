@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'empty_state.dart';
-import 'models.dart';
-import 'routes.dart';
-import 'utils/format.dart';
+import '../widgets/empty_state.dart';
+import '../models/models.dart';
+import '../routes.dart';
+import '../utils/format.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key, required this.args});

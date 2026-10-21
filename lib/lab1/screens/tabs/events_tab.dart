@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'empty_state.dart';
-import 'event_list.dart';
-import 'models.dart';
+import '../../widgets/empty_state.dart';
+import '../../widgets/event_list.dart';
+import '../../models/models.dart';
 
 class EventsTab extends StatefulWidget {
   const EventsTab({

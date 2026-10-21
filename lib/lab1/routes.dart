@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'detail_screen.dart';
-import 'form_screen.dart';
-import 'models.dart';
+import 'screens/detail_screen.dart';
+import 'screens/form_screen.dart';
+import 'models/models.dart';
 
 abstract final class Routes {
   static const home = '/';
