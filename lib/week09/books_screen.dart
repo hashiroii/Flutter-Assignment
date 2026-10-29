@@ -1,44 +1,49 @@
 import 'package:flutter/material.dart';
 
+import 'book_row.dart';
 import 'cart_badge.dart';
-import 'main.dart';
+import 'models/book.dart';
 
-class BooksScreen extends StatelessWidget {
-  const BooksScreen({
-    super.key,
-    required this.cart,
-    required this.total,
-    required this.onAdd,
-  });
+class BooksScreen extends StatefulWidget {
+  const BooksScreen({super.key});
 
-  final List<Book> cart;
-  final int total;
-  final void Function(Book) onAdd;
+  @override
+  State<BooksScreen> createState() => _BooksScreenState();
+}
+
+class _BooksScreenState extends State<BooksScreen> {
+  String _query = '';
+
+  List<Book> get _shown {
+    final q = _query.trim().toLowerCase();
+    return books
+        .where(
+          (b) =>
+              b.title.toLowerCase().contains(q) ||
+              b.author.toLowerCase().contains(q),
+        )
+        .toList();
+  }
 
   @override
   Widget build(BuildContext context) {
     debugPrint('BooksScreen build');
+    final shown = _shown;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Books'),
-        actions: [CartBadge(count: cart.length, total: total)],
+        title: TextField(
+          decoration: const InputDecoration(
+            hintText: 'Search books',
+            prefixIcon: Icon(Icons.search),
+            border: InputBorder.none,
+          ),
+          onChanged: (v) => setState(() => _query = v),
+        ),
+        actions: const [CartBadge()],
       ),
       body: ListView.builder(
-        itemCount: books.length,
-        itemBuilder: (context, i) {
-          final b = books[i];
-          debugPrint('row ${b.title}');
-          return ListTile(
-            title: Text(b.title),
-            subtitle: Text(b.author),
-            trailing: cart.contains(b)
-                ? const Text('Added')
-                : OutlinedButton(
-                    onPressed: () => onAdd(b),
-                    child: const Text('Add'),
-                  ),
-          );
-        },
+        itemCount: shown.length,
+        itemBuilder: (context, i) => BookRow(book: shown[i]),
       ),
     );
   }
