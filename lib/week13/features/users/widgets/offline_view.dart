@@ -10,7 +10,8 @@ class OfflineView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MessageView(
     icon: Icons.wifi_off,
-    text: 'No connection. Check the internet and try again.',
+    text: 'No connection',
+    detail: 'Check the internet and try again.',
     onRetry: onRetry,
   );
 }
