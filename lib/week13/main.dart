@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,7 +23,7 @@ Future<void> main() async {
   const store = SecureStore();
   final token = await store.readToken();
 
-  final api = ApiClient(http.Client(), store);
+  final api = ApiClient(store);
 
   runApp(
     MultiProvider(
