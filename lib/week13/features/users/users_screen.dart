@@ -8,6 +8,12 @@ import 'new_user_screen.dart';
 import 'user.dart';
 import 'user_detail_screen.dart';
 import 'users_model.dart';
+import 'widgets/generic_error_view.dart';
+import 'widgets/loading_view.dart';
+import 'widgets/message_view.dart';
+import 'widgets/offline_banner.dart';
+import 'widgets/offline_view.dart';
+import 'widgets/server_error_view.dart';
 
 class UsersScreen extends StatelessWidget {
   const UsersScreen({super.key});
@@ -42,61 +48,24 @@ class UsersScreen extends StatelessWidget {
           : switch (m.error) {
               null => Column(
                 children: [
-                  if (m.fromCache) StaleBanner(onRetry: m.load),
+                  if (m.fromCache) OfflineBanner(onRetry: m.load),
                   Expanded(child: UserList(users, onRefresh: m.load)),
                 ],
               ),
-              NoConnectionException() => Offline(onRetry: m.load),
-              NotFoundException() || UnauthorizedException() => const Message(
+              NoConnectionException() => OfflineView(onRetry: m.load),
+              NotFoundException() ||
+              UnauthorizedException() => const MessageView(
                 icon: Icons.block,
                 text: 'This list is not available.',
               ),
-              ServerException(:final status) => ServerError(
+              ServerException(:final status) => ServerErrorView(
                 status,
                 onRetry: m.load,
               ),
-              BadResponseException() => const GenericError(),
+              BadResponseException() => const GenericErrorView(),
             },
     );
   }
-}
-
-class StaleBanner extends StatelessWidget {
-  const StaleBanner({super.key, required this.onRetry});
-
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Material(
-      color: scheme.tertiaryContainer,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 16),
-        child: Row(
-          children: [
-            Icon(Icons.cloud_off, size: 18, color: scheme.onTertiaryContainer),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                'Saved data · no connection',
-                style: TextStyle(color: scheme.onTertiaryContainer),
-              ),
-            ),
-            TextButton(onPressed: onRetry, child: const Text('Retry')),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class LoadingView extends StatelessWidget {
-  const LoadingView({super.key});
-
-  @override
-  Widget build(BuildContext context) =>
-      const Center(child: CircularProgressIndicator());
 }
 
 class UserList extends StatelessWidget {
@@ -124,77 +93,5 @@ class UserList extends StatelessWidget {
         );
       },
     ),
-  );
-}
-
-class Message extends StatelessWidget {
-  const Message({
-    super.key,
-    required this.icon,
-    required this.text,
-    this.onRetry,
-  });
-
-  final IconData icon;
-  final String text;
-  final VoidCallback? onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    final retry = onRetry;
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 48),
-            const SizedBox(height: 12),
-            Text(text, textAlign: TextAlign.center),
-            if (retry != null) ...[
-              const SizedBox(height: 12),
-              FilledButton(onPressed: retry, child: const Text('Retry')),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class Offline extends StatelessWidget {
-  const Offline({super.key, required this.onRetry});
-
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) => Message(
-    icon: Icons.wifi_off,
-    text: 'No connection. Check the internet and try again.',
-    onRetry: onRetry,
-  );
-}
-
-class ServerError extends StatelessWidget {
-  const ServerError(this.status, {super.key, required this.onRetry});
-
-  final int status;
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) => Message(
-    icon: Icons.cloud_off,
-    text: 'The server is having trouble ($status).',
-    onRetry: onRetry,
-  );
-}
-
-class GenericError extends StatelessWidget {
-  const GenericError({super.key});
-
-  @override
-  Widget build(BuildContext context) => const Message(
-    icon: Icons.error_outline,
-    text: 'Something went wrong while reading the data.',
   );
 }
