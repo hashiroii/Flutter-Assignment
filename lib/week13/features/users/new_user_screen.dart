@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/api/api_exception.dart';
+import 'address.dart';
+import 'geo.dart';
 import 'user.dart';
 import 'users_model.dart';
 

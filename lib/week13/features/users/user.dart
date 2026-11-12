@@ -1,48 +1,4 @@
-class Geo {
-  const Geo({required this.lat, required this.lng});
-
-  factory Geo.fromJson(Map<String, dynamic> json) => Geo(
-    lat: double.parse(json['lat'] as String),
-    lng: double.parse(json['lng'] as String),
-  );
-
-  final double lat;
-  final double lng;
-
-  Map<String, dynamic> toJson() => {'lat': '$lat', 'lng': '$lng'};
-}
-
-class Address {
-  const Address({
-    required this.street,
-    required this.suite,
-    required this.city,
-    required this.zipcode,
-    required this.geo,
-  });
-
-  factory Address.fromJson(Map<String, dynamic> json) => Address(
-    street: json['street'] as String,
-    suite: json['suite'] as String,
-    city: json['city'] as String,
-    zipcode: json['zipcode'] as String,
-    geo: Geo.fromJson(json['geo'] as Map<String, dynamic>),
-  );
-
-  final String street;
-  final String suite;
-  final String city;
-  final String zipcode;
-  final Geo geo;
-
-  Map<String, dynamic> toJson() => {
-    'street': street,
-    'suite': suite,
-    'city': city,
-    'zipcode': zipcode,
-    'geo': geo.toJson(),
-  };
-}
+import 'address.dart';
 
 class User {
   const User({
