@@ -26,6 +26,7 @@ Future<void> main() async {
 
   final api = ApiClient(store);
   final UserRepository repo = HttpUserRepository(api, UsersCache());
+  // final UserRepository repo = FakeUserRepository();
 
   runApp(
     MultiProvider(
