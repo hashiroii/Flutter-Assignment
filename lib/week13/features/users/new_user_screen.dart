@@ -6,6 +6,7 @@ import 'address.dart';
 import 'geo.dart';
 import 'user.dart';
 import 'users_model.dart';
+import 'widgets/save_button.dart';
 
 class NewUserScreen extends StatefulWidget {
   const NewUserScreen({super.key});
@@ -117,15 +118,7 @@ class _NewUserScreenState extends State<NewUserScreen> {
                   : 'Enter a valid email',
             ),
             const SizedBox(height: 24),
-            FilledButton(
-              onPressed: _saving ? null : _save,
-              child: _saving
-                  ? const SizedBox.square(
-                      dimension: 20,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : const Text('Save'),
-            ),
+            SaveButton(saving: _saving, onPressed: _save),
           ],
         ),
       ),
