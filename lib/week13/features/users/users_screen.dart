@@ -5,8 +5,6 @@ import '../../core/api/api_exception.dart';
 import '../settings/settings_model.dart';
 import '../settings/settings_screen.dart';
 import 'new_user_screen.dart';
-import 'user.dart';
-import 'user_detail_screen.dart';
 import 'users_model.dart';
 import 'widgets/generic_error_view.dart';
 import 'widgets/loading_view.dart';
@@ -14,6 +12,7 @@ import 'widgets/message_view.dart';
 import 'widgets/offline_banner.dart';
 import 'widgets/offline_view.dart';
 import 'widgets/server_error_view.dart';
+import 'widgets/user_list.dart';
 
 class UsersScreen extends StatelessWidget {
   const UsersScreen({super.key});
@@ -66,32 +65,4 @@ class UsersScreen extends StatelessWidget {
             },
     );
   }
-}
-
-class UserList extends StatelessWidget {
-  const UserList(this.users, {super.key, required this.onRefresh});
-
-  final List<User> users;
-  final Future<void> Function() onRefresh;
-
-  @override
-  Widget build(BuildContext context) => RefreshIndicator(
-    onRefresh: onRefresh,
-    child: ListView.separated(
-      physics: const AlwaysScrollableScrollPhysics(),
-      itemCount: users.length,
-      separatorBuilder: (_, _) => const Divider(height: 1),
-      itemBuilder: (context, i) {
-        final u = users[i];
-        return ListTile(
-          leading: CircleAvatar(child: Text(u.name[0])),
-          title: Text(u.name),
-          subtitle: Text('${u.email} · ${u.address.city}'),
-          onTap: () => Navigator.of(context).push(
-            MaterialPageRoute<void>(builder: (_) => UserDetailScreen(user: u)),
-          ),
-        );
-      },
-    ),
-  );
 }
